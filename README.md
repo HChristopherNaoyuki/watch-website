@@ -16,7 +16,7 @@ digital watch with an elegant design and animated transitions.
 ## File Structure
 
 ```
-/digital-watch
+/watch-website
 │
 ├── index.html         # Main HTML structure
 ├── watch.css          # Styling for the digital watch
