@@ -1,31 +1,32 @@
-function updateClock()
+function updateClock() 
 {
-    var now = new Date();
-    var hours = now.getHours();
-    var minutes = now.getMinutes();
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
 
-    // If the location time is unavailable, use UTC
-    if (isNaN(hours) || isNaN(minutes))
+    // Fallback to UTC if local time is unavailable
+    if (isNaN(hours) || isNaN(minutes)) 
     {
-        now = new Date(Date.now());
-        hours = now.getUTCHours();
-        minutes = now.getUTCMinutes();
+        const utcNow = new Date(Date.now());
+        hours = utcNow.getUTCHours();
+        minutes = utcNow.getUTCMinutes();
     }
 
-    // Format time with leading zeros
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    // Format with leading zeros
+    hours = hours < 10 ? '0' + hours : hours.toString();
+    minutes = minutes < 10 ? '0' + minutes : minutes.toString();
 
-    // Update the clock display
-    document.querySelector('.text div:nth-child(1)').textContent = hours;
-    document.querySelector('.text div:nth-child(2)').textContent = minutes;
+    // Update display
+    document.querySelector('.hours').textContent = hours;
+    document.querySelector('.minutes').textContent = minutes;
 }
 
-// Update the clock every minute
-setInterval(updateClock, 60000);
-
-// Initialize the clock when the page loads
-window.onload = function()
+// Update immediately and then every second
+function initClock() 
 {
     updateClock();
-};
+    setInterval(updateClock, 1000);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initClock);
